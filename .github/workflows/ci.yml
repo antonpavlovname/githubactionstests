@@ -23,8 +23,7 @@ jobs:
       run: dotnet restore
     - name: Print Version
       run: |
-        echo $my_version
-        echo ${{my_version}}
+        echo ${{env.my_version}}
         echo ${{vars.MYVERMAJOR}}.${{vars.MYVERMINOR}}.${{github.run_number}}.${{github.run_attempt}}
     - name: Build
       run: dotnet build --no-restore -c Release # -p:Version=$my-version
