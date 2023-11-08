@@ -7,6 +7,10 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    
+    <AssemblyVersion Condition="'$(Version)' == ''">1.0.0.0</AssemblyVersion>
+    <AssemblyVersion Condition="'$(Version)' != ''">$(Version)</AssemblyVersion>
+    <AssemblyFileVersion>$(AssemblyVersion)</AssemblyFileVersion>
   </PropertyGroup>
 
   <ItemGroup>

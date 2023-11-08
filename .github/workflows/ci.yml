@@ -11,7 +11,8 @@ jobs:
   build:
 
     runs-on: windows-latest
-
+    env:
+      my_version: ${{vars.MYVERMAJOR}}.${{vars.MYVERMINOR}}.${{github.run_number}}.${{github.run_attempt}}
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -20,7 +21,12 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: Print Version
+      run: |
+        echo $my_version
+        echo ${{my_version}}
+        echo ${{vars.MYVERMAJOR}}.${{vars.MYVERMINOR}}.${{github.run_number}}.${{github.run_attempt}}
     - name: Build
-      run: dotnet build --no-restore -c Release
+      run: dotnet build --no-restore -c Release # -p:Version=$my-version
     - name: Test
       run: dotnet test --no-build --verbosity normal -c Release
