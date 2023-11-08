@@ -31,8 +31,10 @@ jobs:
       run: dotnet build --no-restore -c Release -p:Version=${{env.my_version}}
     - name: Test
       run: dotnet test --no-build --verbosity normal -c Release
-    - name: publis to artifacts
+    - name: Publish to folder
+      run: dotnet publish .\WebMinimalApi\WebMinimalApi.csproj -p:PublishProfile=GitHubPublish -p:${{env.my_version}}
+    - name: Upload to Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: webapi
-        path: WebMinimalApi\bin\Release\net7.0\
+        path: publish\WebMinimalApi\
