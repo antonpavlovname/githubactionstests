@@ -1,2 +1,3 @@
-# githubactionstests
-sandbox and/or playground for actions on github repos
+# GitHub Actions Tests
+
+Sandbox and/or playground for actions on github repos
