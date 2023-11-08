@@ -6,13 +6,19 @@ on:
   pull_request:
     branches: [ "develop" ]
   workflow_dispatch:
+
+env:
+  my_version: ${{vars.MYVERMAJOR}}.${{vars.MYVERMINOR}}.${{github.run_number}}.${{github.run_attempt}}
   
 jobs:
-  build:
+  printVersion:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print version
+      run: echo ${{env.my_version}}
 
+  build:
     runs-on: windows-latest
-    env:
-      my_version: ${{vars.MYVERMAJOR}}.${{vars.MYVERMINOR}}.${{github.run_number}}.${{github.run_attempt}}
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -21,11 +27,12 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Print Version
-      run: |
-        echo ${{env.my_version}}
-        echo ${{vars.MYVERMAJOR}}.${{vars.MYVERMINOR}}.${{github.run_number}}.${{github.run_attempt}}
     - name: Build
-      run: dotnet build --no-restore -c Release # -p:Version=$my-version
+      run: dotnet build --no-restore -c Release -p:Version=${{env.my_version}}
     - name: Test
       run: dotnet test --no-build --verbosity normal -c Release
+    - name: publis to artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: webapi
+        path: WebMinimalApi\bin\Release\net7.0\
