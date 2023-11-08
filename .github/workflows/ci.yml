@@ -40,8 +40,8 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Build the application
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=Release
+      run: dotnet build $env:Solution_Name -c Release
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
-      run: dotnet test --no-build
+      run: dotnet test --no-build -c Release
