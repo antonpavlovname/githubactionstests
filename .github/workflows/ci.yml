@@ -18,7 +18,7 @@ jobs:
       run: echo ${{env.my_version}}
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -32,12 +32,12 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal -c Release
     - name: Publish to folder
-      run: dotnet publish /WebMinimalApi/WebMinimalApi.csproj -p:PublishProfile=GitHubPublish -p:Version=${{env.my_version}}
+      run: dotnet publish .\WebMinimalApi\WebMinimalApi.csproj -p:PublishProfile=GitHubPublish -p:Version=${{env.my_version}}
     - name: Upload to Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: webapi
-        path: publish/WebMinimalApi/
+        path: publish\WebMinimalApi\
 #    - name: Publish to folder
 #      uses: wangyucode/sftp-upload-action@v2.0.2
 #      with:
@@ -45,5 +45,5 @@ jobs:
 #        port: ${{secrets.sftpport}}
 #        username: ${{secrets.sftpuser}}
 #        password: ${{secrets.sftpassword}}
-#        localDir: publish/WebMinimalApi/
+#        localDir: publish\WebMinimalApi\
 #        remoteDir: /BuildArtefacts/${{env.my_version}}/WebMinimalApi
