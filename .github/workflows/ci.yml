@@ -37,4 +37,13 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: webapi
-        path: publish\WebMinimalApi\
+        path: publish/WebMinimalApi/
+#    - name: Publish to folder
+#      uses: wangyucode/sftp-upload-action@v2.0.2
+#      with:
+#        host: ${{secrets.sftphost}}
+#        port: ${{secrets.sftpport}}
+#        username: ${{secrets.sftpuser}}
+#        password: ${{secrets.sftpassword}}
+#        localDir: publish/WebMinimalApi/
+#        remoteDir: /BuildArtefacts/${{env.my_version}}/WebMinimalApi
