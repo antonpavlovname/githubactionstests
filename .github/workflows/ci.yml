@@ -32,7 +32,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal -c Release
     - name: Publish to folder
-      run: dotnet publish .\WebMinimalApi\WebMinimalApi.csproj -p:PublishProfile=GitHubPublish -p:Version=${{env.my_version}}
+      run: dotnet publish /WebMinimalApi/WebMinimalApi.csproj -p:PublishProfile=GitHubPublish -p:Version=${{env.my_version}}
     - name: Upload to Artifacts
       uses: actions/upload-artifact@v3
       with:
